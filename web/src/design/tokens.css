@@ -1,0 +1,203 @@
+/* ==========================================================================
+   SAATH UI v5 "Ujjwal" — Light-Only, Festive-Modern Design System
+   Bright, Fast, Alive
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+
+  /* Paper Canvas Ramps (Pure Light Only) */
+  --paper: #FFFFFF;
+  --paper-2: #F8FAFC;
+  --paper-3: #F1F5F9;
+
+  /* Ink Contrast Ramps (WCAG 4.5:1 Verified on White) */
+  --ink-900: #0F172A;   /* Primary headings & titles */
+  --ink-700: #334155;   /* Body text & labels */
+  --ink-500: #64748B;   /* Subtitles & metadata */
+  --ink-300: #94A3B8;   /* Disabled & borders */
+  --border-light: #E2E8F0;
+
+  /* Brand Gradient (Saffron -> Coral -> Magenta) */
+  --brand-saffron: #FF9F1C;
+  --brand-coral: #FF5D5D;
+  --brand-magenta: #E040A0;
+  --brand-gradient: linear-gradient(135deg, #FF9F1C 0%, #FF5D5D 50%, #E040A0 100%);
+
+  /* Domain-Owned Palette & Shadows */
+  --domain-money: #12B76A;      /* Emerald */
+  --domain-money-bg: rgba(18, 183, 106, 0.06);
+  --domain-money-shadow: 0 12px 32px -12px rgba(18, 183, 106, 0.35);
+
+  --domain-issue: #FF5D5D;      /* Coral */
+  --domain-issue-bg: rgba(255, 93, 93, 0.06);
+  --domain-issue-shadow: 0 12px 32px -12px rgba(255, 93, 93, 0.35);
+
+  --domain-waiting: #FFB020;    /* Amber */
+  --domain-waiting-bg: rgba(255, 176, 32, 0.06);
+  --domain-waiting-shadow: 0 12px 32px -12px rgba(255, 176, 32, 0.35);
+
+  --domain-supplies: #2E90FA;   /* Sky Blue */
+  --domain-supplies-bg: rgba(46, 144, 250, 0.06);
+  --domain-supplies-shadow: 0 12px 32px -12px rgba(46, 144, 250, 0.35);
+
+  --domain-coord: #7A5AF8;      /* Violet */
+  --domain-coord-bg: rgba(122, 90, 248, 0.06);
+  --domain-coord-shadow: 0 12px 32px -12px rgba(122, 90, 248, 0.35);
+
+  --domain-done: #2BC48A;       /* Mint */
+  --domain-done-bg: rgba(43, 196, 138, 0.06);
+  --domain-done-shadow: 0 12px 32px -12px rgba(43, 196, 138, 0.35);
+
+  /* Radii */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 9999px;
+
+  /* Real Glass (Strict Budget: Max 3 visible at once) */
+  --glass-real-bg: rgba(255, 255, 255, 0.88);
+  --glass-real-blur: 16px;
+  --glass-real-border: rgba(255, 255, 255, 0.8);
+
+  /* Legacy CSS variable aliases for backwards-compatible styling */
+  --text-hi: #0F172A;
+  --text-md: #334155;
+  --text-lo: #64748B;
+  --diya: #FF9F1C;
+  --ember: #FF5D5D;
+  --meadow: #12B76A;
+  --sky: #2E90FA;
+  --brass: #FFB020;
+  --dusk: #7A5AF8;
+  --glass-edge: #E2E8F0;
+  --glass-1: #F8FAFC;
+  --glass-2: #F1F5F9;
+  --glass-3: #E2E8F0;
+  --ink-0: #FFFFFF;
+  --ink-1: #F8FAFC;
+  --shadow-diya: 0 8px 24px -8px rgba(255, 159, 28, 0.45);
+  --shadow-ember: 0 8px 24px -8px rgba(255, 93, 93, 0.45);
+  --ember-glow: rgba(255, 93, 93, 0.25);
+}
+
+/* Base Reset & Fluid Typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--paper-2);
+  color: var(--ink-900);
+  font-family: 'Inter', 'Noto Sans Devanagari', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--paper-2);
+}
+
+.font-sora {
+  font-family: 'Sora', sans-serif;
+}
+
+.font-serif {
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+
+.font-devanagari {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+/* Glass Budget Rule — Real Glass (max 3 in view: dock, header, active sheet) */
+.glass-real {
+  background: var(--glass-real-bg);
+  backdrop-filter: blur(var(--glass-real-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-real-blur)) saturate(160%);
+  border: 1px solid var(--glass-real-border);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+/* Fast Fake Glass for Cards & List Items (NO backdrop-filter, zero GPU overdraw) */
+.glass-fake {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-light);
+  border-top-color: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  contain: layout paint style;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.glass-fake:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  border-color: rgba(255, 159, 28, 0.4);
+}
+
+/* Domain Card Tint Washes */
+.card-domain-money {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--domain-money-bg) 100%);
+  border-color: rgba(18, 183, 106, 0.25);
+  box-shadow: var(--domain-money-shadow);
+}
+
+.card-domain-issue {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--domain-issue-bg) 100%);
+  border-color: rgba(255, 93, 93, 0.25);
+  box-shadow: var(--domain-issue-shadow);
+}
+
+.card-domain-waiting {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--domain-waiting-bg) 100%);
+  border-color: rgba(255, 176, 32, 0.25);
+  box-shadow: var(--domain-waiting-shadow);
+}
+
+.card-domain-supplies {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--domain-supplies-bg) 100%);
+  border-color: rgba(46, 144, 250, 0.25);
+  box-shadow: var(--domain-supplies-shadow);
+}
+
+.card-domain-coord {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--domain-coord-bg) 100%);
+  border-color: rgba(122, 90, 248, 0.25);
+  box-shadow: var(--domain-coord-shadow);
+}
+
+.card-domain-done {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--domain-done-bg) 100%);
+  border-color: rgba(43, 196, 138, 0.25);
+  box-shadow: var(--domain-done-shadow);
+}
+
+/* Ember Overdue Coral Pulse */
+@keyframes coral-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.85; }
+}
+
+.animate-coral-pulse {
+  animation: coral-pulse 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-coral-pulse {
+    animation: none;
+  }
+}
+
+/* Brand Text Clip */
+.text-brand-gradient {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

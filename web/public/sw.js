@@ -1,0 +1,82 @@
+const CACHE_NAME = 'saath-cache-v1';
+const ASSETS_TO_CACHE = [
+  '/',
+  '/index.html',
+  '/manifest.json'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS_TO_CACHE);
+    })
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  const url = event.request.url;
+
+  // Only handle GET requests with http/https scheme
+  if (event.request.method !== 'GET' || !url.startsWith('http')) {
+    return;
+  }
+
+  // Bypass SW for API calls and Vite dev server assets
+  if (
+    url.includes('/api/') ||
+    url.includes('/@vite/') ||
+    url.includes('/@react-refresh') ||
+    url.includes('/@fs/') ||
+    url.includes('/@id/') ||
+    url.includes('/src/')
+  ) {
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request)
+        .then((networkResponse) => {
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+            return networkResponse;
+          }
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+          return networkResponse;
+        })
+        .catch(async () => {
+          if (event.request.mode === 'navigate') {
+            const fallback = await caches.match('/index.html');
+            if (fallback) return fallback;
+          }
+          return new Response('Offline resource unavailable', {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: { 'Content-Type': 'text/plain' }
+          });
+        });
+    })
+  );
+});
+

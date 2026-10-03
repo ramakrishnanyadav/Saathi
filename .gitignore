@@ -1,0 +1,26 @@
+# Database & Event Store
+*.db
+*.db-shm
+*.db-wal
+data/
+
+# Caches & Environment
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# Node & Build Artifacts
+node_modules/
+dist/
+build/
+.env
+.env.local
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

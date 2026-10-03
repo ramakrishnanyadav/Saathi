@@ -1,0 +1,29 @@
+services:
+  # Web Service: FastAPI Backend
+  - type: web
+    name: saath-api
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn saath.api.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /healthz
+    envVars:
+      - key: SAATH_DEMO
+        value: "1"
+      - key: SAATH_FORECASTER
+        value: "heuristic"
+      - key: SAATH_DB_PATH
+        value: ":memory:"
+      - key: SAATH_CORS_ORIGINS
+        value: "https://saath-web.onrender.com,http://localhost:5173"
+      - key: PYTHONPATH
+        value: "api"
+
+  # Static Site: React + Vite Frontend SPA
+  - type: static
+    name: saath-web
+    buildCommand: "cd web && npm ci && npm run build"
+    staticPublishPath: ./web/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
