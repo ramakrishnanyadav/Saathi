@@ -1,27 +1,42 @@
-# SAATH Render Hosted Demo Deployment Guide
+# Render Deployment Guide for SAATH (साथ)
 
-## 1. Overview
-SAATH provides a one-click Render Blueprint (`render.yaml`) deploying:
-1. **API Web Service**: FastAPI backend running with `SAATH_DEMO=1`, ephemeral in-memory SQLite event store, auto-reseeding on boot.
-2. **Static Web SPA**: React/Vite frontend with single-page routing rewrites.
+SAATH includes a pre-configured **Render Infrastructure Blueprint** (`render.yaml`) that builds the React web client and runs the FastAPI backend in a single unified web service.
 
 ---
 
-## 2. Environment Variables & Cold Start Behavior
-- `SAATH_DEMO=1`: Enables header-based authentication and demo member switcher (You / Rahul / Amit).
-- `SAATH_FORECASTER=heuristic`: Uses deterministic Laplace-smoothed forecasting.
-- `SAATH_DB_PATH=:memory:`: Guarantees clean state isolation on each instance spin-up.
+## 🚀 1-Click Deployment Instructions
 
-### Free-Tier Cold Start Handling
-Render free instances sleep after 15 minutes of inactivity. SAATH includes built-in retry handling showing a non-intrusive *"Waking the server..."* prompt while waiting for `/healthz` to respond.
+### Option 1: Render Blueprint (Recommended)
+
+1. Log in to [Render Dashboard](https://dashboard.render.com).
+2. Click **New +** -> **Blueprints**.
+3. Connect your GitHub repository: `https://github.com/ramakrishnanyadav/Saathi`.
+4. Render will automatically detect `render.yaml` and configure:
+   - **Service Name**: `saath-app`
+   - **Environment**: Python 3.11+
+   - **Build Command**: `pip install -r requirements.txt && cd web && npm install && npm run build`
+   - **Start Command**: `PYTHONPATH=api python -m uvicorn saath.api.main:app --host 0.0.0.0 --port $PORT`
+   - **Health Check**: `/healthz`
+5. Click **Apply**. Your app will build and go live in under 3 minutes!
 
 ---
 
-## 3. Deployment Steps
-1. Connect repo to Render Dashboard.
-2. Click **New -> Blueprint**.
-3. Select `render.yaml`.
-4. Deploy!
+### Option 2: Manual Web Service Setup on Render
 
-### Honesty Notice
-The hosted demo uses synthetic house data. Real-time Ollama / Gemma extraction runs locally on your own machine in Local Mode.
+If creating a manual Web Service on Render:
+- **Environment**: Python 3
+- **Build Command**: `pip install -r requirements.txt && cd web && npm install && npm run build`
+- **Start Command**: `PYTHONPATH=api python -m uvicorn saath.api.main:app --host 0.0.0.0 --port $PORT`
+- **Environment Variables**:
+  - `PYTHONPATH` = `api`
+  - `SAATH_DB_PATH` = `:memory:` (or persistent disk path)
+  - `SAATH_DEMO` = `1`
+  - `ELEVENLABS_API_KEY` = *(Optional: your ElevenLabs key)*
+  - `SENTRY_DSN` = *(Optional: your Sentry DSN)*
+
+---
+
+## 🔍 Verification
+Once deployed, open your Render web service URL (e.g. `https://saath-app.onrender.com`):
+- `/healthz` returns `{"status": "ok", "app": "SAATH"}`
+- `/` serves the full interactive React SPA

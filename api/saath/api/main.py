@@ -1085,7 +1085,19 @@ async def seed_demo_data(
 
 
 
-# Mount Web Client static files if built
+from fastapi.responses import FileResponse
+
+# Mount Web Client static files & SPA fallback routing for Render
 _dist_path = Path(__file__).resolve().parent.parent.parent.parent / "web" / "dist"
 if _dist_path.exists():
-    app.mount("/", StaticFiles(directory=str(_dist_path), html=True), name="static")
+    _index_path = _dist_path / "index.html"
+    app.mount("/assets", StaticFiles(directory=str(_dist_path / "assets")), name="assets")
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def serve_spa(full_path: str):
+        if full_path.startswith("api/") or full_path.startswith("healthz") or full_path.startswith("metrics") or full_path.startswith("sentry-debug"):
+            raise ProblemDetailException(status_code=404, title="Not Found", detail=f"Endpoint '{full_path}' not found")
+        file_path = _dist_path / full_path
+        if file_path.exists() and file_path.is_file():
+            return FileResponse(str(file_path))
+        return FileResponse(str(_index_path))
