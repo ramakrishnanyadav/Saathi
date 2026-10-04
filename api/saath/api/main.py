@@ -108,7 +108,7 @@ app.add_middleware(ObservabilityMiddleware)
 # -------------------------------------------------------------
 # Health and Diagnostics
 # -------------------------------------------------------------
-@app.get("/healthz", tags=["Diagnostics"])
+@app.api_route("/healthz", methods=["GET", "HEAD"], tags=["Diagnostics"])
 async def healthz() -> dict[str, str]:
     return {"status": "ok", "app": "SAATH"}
 
@@ -1091,9 +1091,10 @@ from fastapi.responses import FileResponse
 _dist_path = Path(__file__).resolve().parent.parent.parent.parent / "web" / "dist"
 if _dist_path.exists():
     _index_path = _dist_path / "index.html"
-    app.mount("/assets", StaticFiles(directory=str(_dist_path / "assets")), name="assets")
+    if (_dist_path / "assets").exists():
+        app.mount("/assets", StaticFiles(directory=str(_dist_path / "assets")), name="assets")
 
-    @app.get("/{full_path:path}", include_in_schema=False)
+    @app.api_route("/{full_path:path}", methods=["GET", "HEAD"], include_in_schema=False)
     async def serve_spa(full_path: str):
         if full_path.startswith("api/") or full_path.startswith("healthz") or full_path.startswith("metrics") or full_path.startswith("sentry-debug"):
             raise ProblemDetailException(status_code=404, title="Not Found", detail=f"Endpoint '{full_path}' not found")
@@ -1101,3 +1102,8 @@ if _dist_path.exists():
         if file_path.exists() and file_path.is_file():
             return FileResponse(str(file_path))
         return FileResponse(str(_index_path))
+else:
+    @app.api_route("/", methods=["GET", "HEAD"], include_in_schema=False)
+    async def root_fallback():
+        return {"status": "ok", "app": "SAATH", "message": "SAATH API running"}
+
