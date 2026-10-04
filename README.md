@@ -50,21 +50,21 @@ I built **SAATH (साथ)** for my flatmate and close friend, **Rahul**, to el
 ### 1. The Constellation Dashboard (Needs Attention)
 *Real-time breakdown of overdue promises, waiting commitments, and depleted home supplies.*
 
-![Dashboard Loaded](after_confirmation_dashboard_1791021949377.png)
+![Dashboard Loaded](docs/screenshots/after_confirmation_dashboard_1791021949377.png)
 
 ---
 
 ### 2. Human-Gated Financial Confirmation Card
 *Money events never auto-apply. Confirmed payments use integer paise and Hare-Niemeyer quota allocation.*
 
-![Human Confirmation Card](human_confirmation_card_1791021918064.png)
+![Human Confirmation Card](docs/screenshots/human_confirmation_card_1791021918064.png)
 
 ---
 
 ### 3. Voice Input & Audio Synthesis
 *Audio-reactive mic orb for local Hinglish speech ingestion, paired with ElevenLabs spoken check-ins.*
 
-![Composer Active](composer_active_send_button_1791021884846.png)
+![Composer Active](docs/screenshots/composer_active_send_button_1791021884846.png)
 
 </div>
 
