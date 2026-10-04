@@ -18,7 +18,7 @@ Rahul didn't need another task manager. He needed somewhere outside his head to 
 
 So I built **SAATH (साथ, "together")**: a shared memory for the home. Rahul says or types what happened. SAATH extracts the commitment, stores it in an append-only event log, tracks its state, and when something goes overdue it prepares a polite follow-up he sends with one click.
 
-![SAATH dashboard showing the Needs Attention view](https://raw.githubusercontent.com/ramakrishnanyadav/Saathi/main/docs/screenshots/saath_main_app_interface_1791053905928.png)
+![SAATH dashboard showing the Needs Attention view](https://raw.githubusercontent.com/ramakrishnanyadav/Saathi/main/docs/screenshots/dashboard_landing_page.png)
 
 ### You say, SAATH does
 
@@ -43,6 +43,8 @@ Why not the usual tools? Todo apps need a form, and nobody fills one out at 11:3
 
 **Live demo:** https://saath-app.onrender.com
 
+![SAATH Live Interactive Demo Recording](https://raw.githubusercontent.com/ramakrishnanyadav/Saathi/main/docs/screenshots/saath_live_demo.webp)
+
 Here is the flow to try, in the order it happens in the flat:
 
 1. Type or speak the Hinglish plumber sentence. SAATH creates a commitment.
@@ -51,9 +53,9 @@ Here is the flow to try, in the order it happens in the flat:
 4. Enter the ₹1,450 electricity bill. A confirmation card shows the paise split, and nothing is saved until you confirm.
 5. Send the prompt-injection sentence. It is stored as a plain note and nothing changes.
 
-![Overdue commitment with the WhatsApp handoff](https://raw.githubusercontent.com/ramakrishnanyadav/Saathi/main/docs/screenshots/after_commitment_submit_1791018233046.png)
+![Overdue commitment with the WhatsApp handoff](https://raw.githubusercontent.com/ramakrishnanyadav/Saathi/main/docs/screenshots/dhyaan_chahiye_overdue_view.png)
 
-![Expense confirmation card with the paise split](https://raw.githubusercontent.com/ramakrishnanyadav/Saathi/main/docs/screenshots/human_confirmation_card_1791021918064.png)
+![Expense confirmation card with the paise split](https://raw.githubusercontent.com/ramakrishnanyadav/Saathi/main/docs/screenshots/kharcha_expenses_view.png)
 
 > **About the demo clock.** `clock_sim.py` provides an `OffsetClock` so the 48-hour transition can be shown in seconds. In normal use, status is derived from real elapsed time.
 

@@ -47,17 +47,31 @@ I built **SAATH (साथ)** for my flatmate and close friend, **Rahul**, to el
 
 <div align="center">
 
-### 1. The Constellation Dashboard (Needs Attention)
-*Real-time breakdown of overdue promises, waiting commitments, and depleted home supplies.*
+### 1. Live Interactive Video Walkthrough
+*Watch SAATH process Hinglish commitments, advance time by 48 hours, and split expenses automatically.*
 
-![Dashboard Loaded](docs/screenshots/after_confirmation_dashboard_1791021949377.png)
+![SAATH Live Interactive Demo](docs/screenshots/saath_live_demo.webp)
 
 ---
 
-### 2. Human-Gated Financial Confirmation Card
+### 2. Main Dashboard & Needs Attention View
+*Real-time breakdown of overdue promises, waiting commitments, and depleted home supplies.*
+
+![SAATH Main Dashboard](docs/screenshots/dashboard_landing_page.png)
+
+---
+
+### 3. Overdue Commitment Detection & WhatsApp Handoff
+*When 48 hours elapse, status switches to OVERDUE and generates a 1-click polite WhatsApp draft.*
+
+![Overdue Commitment Handoff](docs/screenshots/dhyaan_chahiye_overdue_view.png)
+
+---
+
+### 4. Human-Gated Financial Confirmation Card
 *Money events never auto-apply. Confirmed payments use integer paise and Hare-Niemeyer quota allocation.*
 
-![Human Confirmation Card](docs/screenshots/human_confirmation_card_1791021918064.png)
+![Human Confirmation Card](docs/screenshots/kharcha_expenses_view.png)
 
 ---
 
